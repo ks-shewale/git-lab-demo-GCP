@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-
-    }
-  }
-}
 
 provider "aws" {
   region = "us-east-1"
@@ -21,8 +13,8 @@ resource "aws_security_group" "security_group_payment_app" {
 
 # Below ingress allows HTTPS  from DEV VPC
   ingress {
-       from_port        = 443
-     to_port          = 443
+       from_port        = var.https
+     to_port          = var.https
     protocol         = "tcp"
       cidr_blocks      = ["172.31.0.0/16"]
   }
@@ -30,8 +22,8 @@ resource "aws_security_group" "security_group_payment_app" {
 # Below ingress allows APIs access from DEV VPC
 
   ingress {
-    from_port        = 8080
-      to_port          = 8080
+    from_port        = var.http
+      to_port          = var.http
     protocol         = "tcp"
        cidr_blocks      = ["172.31.0.0/16"]
   }
@@ -39,8 +31,8 @@ resource "aws_security_group" "security_group_payment_app" {
 # Below ingress allows APIs access from Prod App Public IP.
 
   ingress {
-    from_port        = 8443
-      to_port          = 8443
+    from_port        = var.API
+      to_port          = var.API
     protocol         = "tcp"
        cidr_blocks      = ["${aws_eip.example.public_ip}/32"]
   }
