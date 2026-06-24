@@ -1,0 +1,9 @@
+variable "my_sefl" {
+    type = set(string)
+    default = [ "john","bob","rahul"]
+}
+
+resource "aws_iam_user" "name"{
+for_each = var.my_sefl
+ name=  each.value
+}git

@@ -1,0 +1,10 @@
+
+
+data "google_compute_instance" "appserver" {
+  name = "instance-20260616-120750"
+  zone = "us-central1-b"
+}
+
+output "name" {
+  value = data.google_compute_instance.appserver
+}
